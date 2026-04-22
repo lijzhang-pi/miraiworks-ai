@@ -67,6 +67,30 @@ export function ServiceSection() {
         </Reveal>
 
         <Reveal>
+          <Card className="overflow-hidden bg-gradient-to-r from-brand-navy to-brand-ink text-white">
+            <CardHeader>
+              <CardTitle className="text-white">{services.aiEraHighlight.title}</CardTitle>
+              <CardDescription className="text-white/80">
+                {services.aiEraHighlight.description}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-5">
+              <p className="text-sm leading-7 text-white/85">{services.aiEraHighlight.note}</p>
+              <div className="flex flex-wrap gap-3">
+                {services.aiEraHighlight.points.map((point) => (
+                  <span
+                    key={point}
+                    className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm"
+                  >
+                    {point}
+                  </span>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </Reveal>
+
+        <Reveal>
           <Link
             href="/services"
             className={cn(buttonVariants({ variant: "secondary", size: "lg" }), "w-full sm:w-auto")}
