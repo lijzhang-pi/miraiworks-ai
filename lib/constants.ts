@@ -592,6 +592,12 @@ export const siteContent = {
         "内容を確認後、折り返しのご連絡方法やヒアリングの進め方をご案内します。",
     },
     reassuranceNote: "初回相談は無料です。無理な営業は行いません。",
+    directContact: {
+      title: "メールでのお問い合わせ",
+      description:
+        "フォームのご利用が難しい場合は、下記メールアドレス宛にもご連絡いただけます。",
+      email: "info@miraiworks-ai.com",
+    },
     detailCards: [
       {
         title: "こんなご相談を歓迎しています",
@@ -628,9 +634,10 @@ export const siteContent = {
       privacyNote: "送信いただいた内容は、お問い合わせ対応以外の目的では使用しません。",
       submitLabel: "送信する",
       submittingLabel: "送信中...",
-      successTitle: "送信ありがとうございました",
+      successTitle: "お問い合わせありがとうございます。",
       successMessage:
-        "内容を確認のうえ、折り返しご連絡いたします。必要に応じて追加でヒアリングさせていただく場合があります。",
+        "内容を確認の上、通常1〜2営業日以内にご連絡いたします。",
+      errorMessage: "送信に失敗しました。時間をおいて再度お試しください。",
       fields: {
         companyName: {
           label: "会社名",

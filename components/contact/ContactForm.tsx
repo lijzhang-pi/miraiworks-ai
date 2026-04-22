@@ -34,33 +34,85 @@ function FieldLabel({
 export function ContactForm() {
   const { form } = siteContent.contactPage;
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [status, setStatus] = useState<
+    | { type: "success"; message: string }
+    | { type: "error"; message: string }
+    | null
+  >(null);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (isSubmitting) {
+      return;
+    }
+
     const formElement = event.currentTarget;
+    const formData = new FormData(formElement);
+
+    const payload = {
+      company: String(formData.get("company") ?? ""),
+      name: String(formData.get("name") ?? ""),
+      email: String(formData.get("email") ?? ""),
+      phone: String(formData.get("phone") ?? ""),
+      website: String(formData.get("website") ?? ""),
+      service: String(formData.get("service") ?? ""),
+      budget: String(formData.get("budget") ?? ""),
+      message: String(formData.get("message") ?? ""),
+    };
+
     setIsSubmitting(true);
-    setIsSubmitted(false);
+    setStatus(null);
 
-    await new Promise((resolve) => {
-      window.setTimeout(() => resolve(null), 900);
-    });
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-    formElement.reset();
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+      const result = (await response.json().catch(() => null)) as
+        | { ok?: boolean; message?: string }
+        | null;
+
+      if (!response.ok || !result?.ok) {
+        setStatus({
+          type: "error",
+          message: result?.message ?? form.errorMessage,
+        });
+        return;
+      }
+
+      formElement.reset();
+      setStatus({
+        type: "success",
+        message: form.successMessage,
+      });
+    } catch {
+      setStatus({
+        type: "error",
+        message: form.errorMessage,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
     <form className="space-y-5" onSubmit={handleSubmit}>
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <FieldLabel htmlFor="companyName" label={form.fields.companyName.label} />
+          <FieldLabel
+            htmlFor="company"
+            label={form.fields.companyName.label}
+            optional
+          />
           <Input
-            id="companyName"
-            name="companyName"
+            id="company"
+            name="company"
             placeholder={form.fields.companyName.placeholder}
-            required
           />
         </div>
         <div>
@@ -91,14 +143,13 @@ export function ContactForm() {
           />
         </div>
         <div className="sm:col-span-2">
-          <FieldLabel htmlFor="service" label={form.fields.service.label} />
+          <FieldLabel htmlFor="service" label={form.fields.service.label} optional />
           <Select
             id="service"
             name="service"
             defaultValue=""
             options={form.serviceOptions}
             placeholder={form.fields.service.placeholder}
-            required
           />
         </div>
         <div className="sm:col-span-2">
@@ -118,10 +169,32 @@ export function ContactForm() {
 
       <p className="text-sm leading-6 text-slate-500">{form.privacyNote}</p>
 
-      {isSubmitted ? (
-        <div className="rounded-3xl border border-emerald-200 bg-emerald-50 px-5 py-4">
-          <p className="font-semibold text-emerald-700">{form.successTitle}</p>
-          <p className="mt-1 text-sm leading-6 text-emerald-700/90">{form.successMessage}</p>
+      {status ? (
+        <div
+          className={
+            status.type === "success"
+              ? "rounded-3xl border border-emerald-200 bg-emerald-50 px-5 py-4"
+              : "rounded-3xl border border-rose-200 bg-rose-50 px-5 py-4"
+          }
+        >
+          <p
+            className={
+              status.type === "success"
+                ? "font-semibold text-emerald-700"
+                : "font-semibold text-rose-700"
+            }
+          >
+            {status.type === "success" ? form.successTitle : "送信エラー"}
+          </p>
+          <p
+            className={
+              status.type === "success"
+                ? "mt-1 text-sm leading-6 text-emerald-700/90"
+                : "mt-1 text-sm leading-6 text-rose-700/90"
+            }
+          >
+            {status.message}
+          </p>
         </div>
       ) : null}
 
