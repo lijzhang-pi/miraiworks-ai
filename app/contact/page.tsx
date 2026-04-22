@@ -104,6 +104,23 @@ export default function ContactPage() {
                   </CardContent>
                 </Card>
               </Reveal>
+
+              <Reveal>
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">{contactPage.directContact.title}</CardTitle>
+                    <CardDescription>{contactPage.directContact.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <a
+                      href={`mailto:${contactPage.directContact.email}`}
+                      className="text-base font-semibold text-brand-navy underline decoration-brand-sky/40 underline-offset-4"
+                    >
+                      {contactPage.directContact.email}
+                    </a>
+                  </CardContent>
+                </Card>
+              </Reveal>
             </div>
 
             <Reveal delay={0.05}>
