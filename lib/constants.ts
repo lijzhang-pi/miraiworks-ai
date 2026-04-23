@@ -47,6 +47,7 @@ export const siteContent = {
     contactTitle: "ご相談窓口",
     contactItems: [
       { label: "初回相談", value: "無料" },
+      { label: "メール", value: "info@miraiworks-ai.com" },
       { label: "ご連絡方法", value: "お問い合わせフォームより受付" },
       { label: "対応エリア", value: "日本全国・オンライン対応" },
     ],

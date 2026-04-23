@@ -25,14 +25,10 @@ npm run start
 ```env
 RESEND_API_KEY=your_resend_api_key
 CONTACT_TO_EMAIL=info@miraiworks-ai.com
-CONTACT_FROM_EMAIL=MiraiWorks AI <onboarding@resend.dev>
-```
-
-Resend の送信元ドメイン認証後は、`CONTACT_FROM_EMAIL` を以下に変更できます。
-
-```env
 CONTACT_FROM_EMAIL=MiraiWorks AI <info@miraiworks-ai.com>
 ```
+
+初期テストでは Resend のデフォルト送信元を利用できます。正式環境では、Resend で検証済みのドメインメールアドレスを `CONTACT_FROM_EMAIL` に設定してください。
 
 ## AWS Amplify
 
@@ -41,7 +37,7 @@ AWS Amplify Console で以下の環境変数を追加してください。
 ```env
 RESEND_API_KEY=実際の Resend API Key
 CONTACT_TO_EMAIL=info@miraiworks-ai.com
-CONTACT_FROM_EMAIL=MiraiWorks AI <onboarding@resend.dev>
+CONTACT_FROM_EMAIL=MiraiWorks AI <info@miraiworks-ai.com>
 ```
 
 追加後は `main` ブランチを再デプロイしてください。
