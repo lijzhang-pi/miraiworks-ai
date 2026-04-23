@@ -78,6 +78,7 @@ export async function POST(request: Request) {
   const fromEmail = process.env.CONTACT_FROM_EMAIL;
 
   if (!resendApiKey || !toEmail || !fromEmail) {
+    console.error("Contact API misconfigured: missing required email environment variables.");
     return NextResponse.json(
       {
         ok: false,
@@ -145,6 +146,7 @@ export async function POST(request: Request) {
     });
 
     if (error) {
+      console.error("Resend email send failed.", error);
       return NextResponse.json(
         {
           ok: false,
@@ -158,7 +160,8 @@ export async function POST(request: Request) {
       { ok: true, message: "お問い合わせを送信しました。" },
       { status: 200 },
     );
-  } catch {
+  } catch (error) {
+    console.error("Unexpected contact email error.", error);
     return NextResponse.json(
       {
         ok: false,

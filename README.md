@@ -40,4 +40,8 @@ CONTACT_TO_EMAIL=info@miraiworks-ai.com
 CONTACT_FROM_EMAIL=MiraiWorks AI <info@miraiworks-ai.com>
 ```
 
-追加後は `main` ブランチを再デプロイしてください。
+Next.js App Router の `/api/contact` は SSR の Route Handler として動作するため、Amplify では Console に設定した環境変数を `.env.production` に書き出してからビルドする必要があります。
+
+このリポジトリの [amplify.yml](/Users/zhanglijun/Documents/project/miraiworks-ai/amplify.yml) では、`RESEND_API_KEY`、`CONTACT_TO_EMAIL`、`CONTACT_FROM_EMAIL` を `.env.production` に書き出す設定を入れています。
+
+追加または更新後は `main` ブランチを再デプロイしてください。

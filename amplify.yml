@@ -6,6 +6,11 @@ frontend:
         - npm ci
     build:
       commands:
+        - printenv RESEND_API_KEY >/dev/null
+        - printenv CONTACT_TO_EMAIL >/dev/null
+        - printenv CONTACT_FROM_EMAIL >/dev/null
+        - rm -f .env.production
+        - env | grep -e RESEND_API_KEY -e CONTACT_TO_EMAIL -e CONTACT_FROM_EMAIL >> .env.production
         - npm run build
   artifacts:
     baseDirectory: .next
