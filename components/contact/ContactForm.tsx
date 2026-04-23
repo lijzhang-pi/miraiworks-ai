@@ -117,7 +117,13 @@ export function ContactForm() {
         </div>
         <div>
           <FieldLabel htmlFor="name" label={form.fields.name.label} />
-          <Input id="name" name="name" placeholder={form.fields.name.placeholder} required />
+          <Input
+            id="name"
+            name="name"
+            placeholder={form.fields.name.placeholder}
+            required
+            maxLength={100}
+          />
         </div>
         <div>
           <FieldLabel htmlFor="email" label={form.fields.email.label} />
@@ -127,6 +133,7 @@ export function ContactForm() {
             type="email"
             placeholder={form.fields.email.placeholder}
             required
+            maxLength={320}
           />
         </div>
         <div>
@@ -159,7 +166,10 @@ export function ContactForm() {
             name="message"
             placeholder={form.fields.message.placeholder}
             required
+            minLength={10}
+            maxLength={2000}
           />
+          <p className="mt-2 text-xs text-slate-500">10文字以上でご記入ください。</p>
         </div>
         <div className="sm:col-span-2">
           <FieldLabel htmlFor="budget" label={form.fields.budget.label} optional />
